@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The Musician's Roadmap</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --ink: #1a1a18;
+      --cream: #f5f2eb;
+      --warm: #e8e1d0;
+      --accent: #8b4a2f;
+      --accent-light: #c47a55;
+      --muted: #7a7570;
+      --rule: #d4cfc5;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      font-size: 17px;
+      line-height: 1.7;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: var(--cream);
+      border-bottom: 1px solid var(--rule);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      height: 60px;
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      letter-spacing: 0.02em;
+      color: var(--ink);
+      text-decoration: none;
+    }
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+    .nav-links a {
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* HERO */
+    #home {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 100px 48px 80px;
+      border-bottom: 1px solid var(--rule);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-bg-text {
+      position: absolute;
+      right: -20px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(120px, 18vw, 240px);
+      font-style: italic;
+      color: transparent;
+      -webkit-text-stroke: 1px var(--rule);
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+    }
+    .hero-content {
+      max-width: 680px;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-eyebrow {
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 5vw, 4.2rem);
+      line-height: 1.12;
+      font-weight: 700;
+      margin-bottom: 28px;
+      letter-spacing: -0.01em;
+    }
+    .hero-sub {
+      font-size: 1.1rem;
+      color: var(--muted);
+      max-width: 520px;
+      margin-bottom: 40px;
+      font-weight: 300;
+    }
+    .hero-cta-row {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      display: inline-block;
+      background: var(--accent);
+      color: var(--cream);
+      text-decoration: none;
+      padding: 13px 28px;
+      font-size: 0.88rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: background 0.2s;
+    }
+    .btn-primary:hover { background: var(--ink); }
+    .btn-secondary {
+      display: inline-block;
+      border: 1px solid var(--rule);
+      color: var(--muted);
+      text-decoration: none;
+      padding: 13px 28px;
+      font-size: 0.88rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: all 0.2s;
+    }
+    .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* SECTION SHELL */
+    section {
+      padding: 100px 48px;
+      border-bottom: 1px solid var(--rule);
+    }
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 20px;
+      margin-bottom: 64px;
+    }
+    .section-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.85rem;
+      color: var(--accent);
+      font-style: italic;
+    }
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.9rem, 3.5vw, 2.8rem);
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+    }
+
+    /* PRACTICE SECTION */
+    #practice .section-intro {
+      max-width: 600px;
+      color: var(--muted);
+      margin-bottom: 64px;
+      font-size: 1.05rem;
+    }
+    .practice-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1px;
+      background: var(--rule);
+      border: 1px solid var(--rule);
+    }
+    .practice-card {
+      background: var(--cream);
+      padding: 40px 36px;
+      cursor: pointer;
+      transition: background 0.2s;
+      position: relative;
+    }
+    .practice-card:hover { background: var(--warm); }
+    .card-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      color: var(--rule);
+      font-weight: 700;
+      margin-bottom: 16px;
+      line-height: 1;
+    }
+    .practice-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      margin-bottom: 12px;
+      font-weight: 700;
+    }
+    .practice-card p {
+      font-size: 0.92rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+    .card-read-more {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 20px;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      transition: gap 0.2s;
+    }
+    .practice-card:hover .card-read-more { gap: 10px; }
+    .card-read-more svg {
+      width: 12px;
+      height: 12px;
+      stroke: var(--accent);
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      transition: transform 0.2s;
+    }
+    .practice-card:hover .card-read-more svg { transform: translateX(3px); }
+
+    /* DRAWER OVERLAY */
+    .drawer-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(26, 26, 24, 0.5);
+      z-index: 200;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s ease;
+    }
+    .drawer-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    /* DRAWER PANEL */
+    .drawer {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: min(680px, 100vw);
+      background: var(--cream);
+      z-index: 201;
+      overflow-y: auto;
+      transform: translateX(100%);
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      border-left: 1px solid var(--rule);
+      display: flex;
+      flex-direction: column;
+    }
+    .drawer.open {
+      transform: translateX(0);
+    }
+
+    .drawer-header {
+      position: sticky;
+      top: 0;
+      background: var(--cream);
+      border-bottom: 1px solid var(--rule);
+      padding: 24px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 1;
+    }
+    .drawer-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    .drawer-close {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 6px;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: color 0.2s;
+    }
+    .drawer-close:hover { color: var(--ink); }
+    .drawer-close svg {
+      width: 20px;
+      height: 20px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+    }
+
+    .drawer-body {
+      padding: 48px 40px 64px;
+      flex: 1;
+    }
+    .drawer-body h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 700;
+      margin-bottom: 36px;
+      line-height: 1.2;
+    }
+    .drawer-body p {
+      font-size: 0.97rem;
+      color: #4a4844;
+      margin-bottom: 20px;
+      line-height: 1.8;
+    }
+    .drawer-body h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-top: 36px;
+      margin-bottom: 12px;
+      color: var(--ink);
+    }
+    .drawer-body .drawer-section {
+      border-top: 1px solid var(--rule);
+      padding-top: 28px;
+      margin-top: 28px;
+    }
+
+    /* AUDITION SECTION */
+    #auditions {
+      background: var(--ink);
+      color: var(--cream);
+    }
+    #auditions .section-num { color: var(--accent-light); }
+    #auditions h2 { color: var(--cream); }
+    #auditions .section-intro { color: #9e9a92; }
+    .audition-list {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 0;
+      border-top: 1px solid #333;
+    }
+    .audition-item {
+      padding: 36px 0;
+      border-bottom: 1px solid #333;
+      padding-right: 40px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .audition-item:hover { background: #222220; }
+    .audition-item:nth-child(odd) { border-right: 1px solid #333; padding-left: 0; }
+    .audition-item:nth-child(even) { padding-left: 40px; }
+    .audition-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent-light);
+      margin-bottom: 10px;
+    }
+    .audition-item h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+      color: var(--cream);
+    }
+    .audition-item p {
+      font-size: 0.9rem;
+      color: #7a7570;
+      line-height: 1.65;
+    }
+
+    /* FOOTER */
+    footer {
+      padding: 36px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--rule);
+    }
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1rem;
+      color: var(--muted);
+    }
+    .footer-note {
+      font-size: 0.8rem;
+      color: var(--rule);
+      letter-spacing: 0.04em;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      nav { padding: 0 24px; }
+      .nav-links { gap: 20px; }
+      section { padding: 72px 24px; }
+      #home { padding: 100px 24px 72px; }
+      footer { padding: 28px 24px; flex-direction: column; gap: 12px; text-align: center; }
+      #resources .resource-cols { grid-template-columns: 1fr; }
+      .audition-item:nth-child(odd) { border-right: none; }
+      .audition-item:nth-child(even) { padding-left: 0; }
+      .drawer-body { padding: 36px 24px 48px; }
+      .drawer-header { padding: 20px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#home" class="nav-logo">The Musician's Roadmap</a>
+    <ul class="nav-links">
+      <li><a href="#practice">Practice</a></li>
+      <li><a href="#auditions">Auditions</a></li>
+    </ul>
+  </nav>
+
+  <!-- HOME -->
+  <section id="home">
+    <div class="hero-bg-text">music</div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">A free resource for high school musicians</p>
+      <h1>Practice smarter.<br>Audition with confidence.</h1>
+      <p class="hero-sub">Everything you need to develop strong practice habits and navigate the college music audition process.</p>
+      <div class="hero-cta-row">
+        <a href="#practice" class="btn-primary">Start with Practice</a>
+        <a href="#auditions" class="btn-secondary">Audition Guide</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRACTICE -->
+  <section id="practice">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <h2>Practice Habits</h2>
+    </div>
+    <p class="section-intro">Most musicians aren't taught how to practice. They're taught how to play, and then told to go do more of it. These fundamentals apply regardless of your instrument or level.</p>
+
+    <div class="practice-grid">
+
+      <div class="practice-card" data-topic="inefficiency">
+        <div class="card-num">01</div>
+        <h3>Why Most Musicians Practice Inefficiently</h3>
+        <p>Running through pieces from start to finish feels productive but rarely is. Learn the difference between performing and practicing, and why it matters.</p>
+        <span class="card-read-more">Read more <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+      </div>
+
+      <div class="practice-card" data-topic="fundamentals">
+        <div class="card-num">02</div>
+        <h3>The Fundamentals</h3>
+        <p>Slow practice, chunking, mental practice: Fundamental practice techniques. Here's how to actually use them.</p>
+        <span class="card-read-more">Read more <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+      </div>
+
+      <div class="practice-card" data-topic="routine">
+        <div class="card-num">03</div>
+        <h3>Building a Consistent Routine</h3>
+        <p>Scheduling, environment, tracking progress. A shorter daily practice beats a long weekend practice almost every time.</p>
+        <span class="card-read-more">Read more <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+      </div>
+
+      <div class="practice-card" data-topic="plateaus">
+        <div class="card-num">04</div>
+        <h3>Understanding Plateaus</h3>
+        <p>Every musician hits walls. Most are caused by the same few problems. How to diagnose what's actually happening and what to do about it.</p>
+        <span class="card-read-more">Read more <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+      </div>
+
+      <div class="practice-card" data-topic="performance">
+        <div class="card-num">05</div>
+        <h3>Practicing for Performance</h3>
+        <p>Simulating pressure, structuring run-throughs versus drilling, and managing nerves before they arrive. What to do in the final weeks/days before a performance.</p>
+        <span class="card-read-more">Read more <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- AUDITIONS -->
+  <section id="auditions">
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <h2>College Audition Guide</h2>
+    </div>
+    <p class="section-intro" style="max-width:600px; margin-bottom:56px;">The college music application process is unlike any other. This guide walks through every stage, from building your school list to what happens after you hear back.</p>
+    <ul class="audition-list">
+      <li class="audition-item" data-topic="landscape">
+        <div class="audition-label">Chapter 1</div>
+        <h3>Understanding the Landscape</h3>
+        <p>Conservatories, university programs, liberal arts schools with music. There are many different types of music programs. What each path looks like and what it prioritizes.</p>
+      </li>
+      <li class="audition-item" data-topic="schoollist">
+        <div class="audition-label">Chapter 2</div>
+        <h3>Building Your School List</h3>
+        <p>Reach, match, and safety, and what they actually mean for music programs. What to look for beyond rankings and reputation.</p>
+      </li>
+      <li class="audition-item" data-topic="repertoire">
+        <div class="audition-label">Chapter 3</div>
+        <h3>Repertoire and Timeline</h3>
+        <p>How to choose what to play, when to lock it in, and how to structure your preparation over the months leading up to auditions.</p>
+      </li>
+      <li class="audition-item" data-topic="prescreens">
+        <div class="audition-label">Chapter 4</div>
+        <h3>Prescreens</h3>
+        <p>What they are, which schools require them, how to record well, and how to think about them separately from the live audition.</p>
+      </li>
+      <li class="audition-item" data-topic="liveaudition">
+        <div class="audition-label">Chapter 5</div>
+        <h3>Live Auditions</h3>
+        <p>Logistics, nerves, what actually happens in the room, and how to recover when something goes wrong.</p>
+      </li>
+      <li class="audition-item" data-topic="fit">
+        <div class="audition-label">Chapter 6</div>
+        <h3>Finding the Right Fit</h3>
+        <p>Teacher relationships, campus visits, and what questions to ask that most applicants don't think to ask.</p>
+      </li>
+      <li class="audition-item" data-topic="after">
+        <div class="audition-label">Chapter 7</div>
+        <h3>After the Audition</h3>
+        <p>Decisions, waitlists, financial aid, and how to evaluate your options when you have them, or when you don't.</p>
+      </li>
+    </ul>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span class="footer-logo">The Musician's Roadmap</span>
+    <span class="footer-note">Made for high school musicians &mdash; [Year]</span>
+  </footer>
+
+  <!-- DRAWER OVERLAY -->
+  <div class="drawer-overlay" id="drawerOverlay"></div>
+
+  <!-- DRAWER PANEL -->
+  <div class="drawer" id="drawer" role="dialog" aria-modal="true">
+    <div class="drawer-header">
+      <span class="drawer-label" id="drawerLabel">Practice Habits</span>
+      <button class="drawer-close" id="drawerClose" aria-label="Close">
+        <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="drawer-body" id="drawerBody"></div>
+  </div>
+
+  <script>
+    const content = {
+      inefficiency: {
+        label: "01 — Practice Habits",
+        title: "Why Most Musicians Practice Inefficiently",
+        body: `
+          <p>The most common way musicians practice is to start at the beginning of a piece and play through to the end. If something goes wrong, they stop, back up a few measures, and try again. This feels productive. It keeps you playing, and playing feels like practicing.</p>
+          <p>The problem is that running through music is a performance behavior, not a learning behavior. When you play through a piece, you are executing what you already know. The places where you stumble get a second attempt, but rarely enough focused attention to actually change. Over time, you get very good at playing the piece mostly correctly, with the same few mistakes happening in the same places every time. The mistakes feel minimal, as they are fixed within a couple attempts, but are recurring.</p>
+          <p>Real practice means isolating the measures you cannot play and staying with them until they change. It means slowing something down so far that it feels almost pointless. It means stopping mid-phrase repeatedly. None of that feels as satisfying as a full run-through, which is exactly why most people avoid it.</p>
+          <p>The first shift to make is separating your practice time from your performance time. Decide, before you sit down, whether you are there to work on something or to play through it. Both have value, but they are different activities and they should be treated that way.</p>
+        `
+      },
+      fundamentals: {
+        label: "02 — Practice Habits",
+        title: "The Fundamentals: Slow Practice, Chunking, and Mental Practice",
+        body: `
+          <div class="drawer-section" style="border-top:none; padding-top:0; margin-top:0;">
+            <h3>Slow Practice</h3>
+            <p>Slow practice is the single most underused tool in a musician's toolkit. Most people know they are supposed to do it, and most people do not do it slowly enough.</p>
+            <p>The goal of slow practice is not to play the piece at a reduced tempo. It is to give your brain enough time to make conscious decisions about every note and musical choice before you play it. When you practice at performance tempo, your fingers are ahead of your thinking. Muscle memory takes over, and muscle memory is not reliable under pressure. When you practice slowly enough that you are fully aware of each note, each shift, each breath, or each bow change, you are building the kind of familiarity that actually holds up when you are nervous.</p>
+            <p>A useful test: if you are making errors during slow practice, you are not going slowly enough. The tempo should be so reduced that mistakes feel impossible. Start there, then increase gradually, and only move up when the slower tempo is completely clean. Many people WILL go slowly enough, but will increase too quickly. Oftentimes, a passage can be played without any audible mistakes while still retaining issues. If you feel any amount of resistance from your mind, fingers, embouchure, or any other aspect of your playing, it is worth continuing to practice at that speed, or even slowing down, even if there are no audible errors.</p>
+          </div>
+          <div class="drawer-section">
+            <h3>Chunking</h3>
+            <p>Chunking means breaking a piece into small, workable units and learning each one thoroughly before moving on. A chunk might be two measures, or one phrase, or even a single beat if the passage is technically demanding enough.</p>
+            <p>The size of the chunk should be determined by the difficulty of the material, not by what looks like a natural section on the page. If four notes in a row are causing you trouble, those four notes are a chunk. Work them until they are solid. Then add the two notes before them. Then the two after. This method (sometimes called the “add-on method”, if you are looking to find more resources on it) is more effective than drilling a passage from its beginning every time.</p>
+            <p>Once a chunk is clean on its own, you need to practice the transitions. A passage that works in isolation often falls apart when it follows or leads into something else. Spend time specifically on the seams between chunks, not just the chunks themselves.</p>
+          </div>
+          <div class="drawer-section">
+            <h3>Mental Practice</h3>
+            <p>Mental practice means going through music in your head, away from your instrument, with as much detail as possible. It sounds passive, but it can be highly effective.</p>
+            <p>Research on motor learning consistently shows that mental practice activates many of the same neural pathways as physical practice. Musicians who incorporate mental practice into their routine learn music faster and retain it more reliably than those who do not.</p>
+            <p>To do it effectively, sit somewhere quiet and close your eyes. Play through a section in your mind at your target tempo. Hear each note clearly. Notice where your attention drifts or where you are uncertain about what comes next. Those gaps in your mental map correspond exactly to the passages most likely to fail under pressure. It is helpful for memorization, but also for general practice. Even with the sheet music in front of you and your eyes open, you will often find that there are unexpected notes, rhythms, or dynamics.</p>
+            <p>Mental practice is also useful for passages that are physically tiring to drill repeatedly. If your embouchure or bow arm is fatigued, you can keep working on a passage mentally without the physical cost. Mental practice does NOT require air playing. You may see musicians using their arm, or an object, as a placeholder for their instrument when practicing in their head. This is not shown to help with mental practice, and can just lead to bad posture or physical exhaustion, which defeats the point of practicing without your instrument.</p>
+          </div>
+        `
+      },
+      routine: {
+        label: "03 — Practice Habits",
+        title: "Building a Consistent Routine",
+        body: `
+          <div class="drawer-section" style="border-top:none; padding-top:0; margin-top:0;">
+            <h3>Why Consistency Beats Intensity</h3>
+            <p>A two-hour daily practice is worth more than a six-hour Saturday session. This is not motivational advice. It is how skill acquisition actually works. The neural pathways that support musical ability are consolidated during rest, especially sleep. Spacing your practice across multiple days gives your brain time to process and reinforce what you learned. Cramming the same amount of practice into fewer sessions cuts that consolidation time short.</p>
+            <p>If you are limited on time, protect your daily practice before you think about lengthening individual sessions.</p>
+          </div>
+          <div class="drawer-section">
+            <h3>Structuring a Session</h3>
+            <p>A practice session without a structure tends to fill itself with whatever is most comfortable. Most musicians, left to their own devices, will spend most of their time on material they already play well. This feels good and accomplishes very little.</p>
+            <p>A useful default structure is: warm-up, technique, repertoire work, and a brief run-through. The warm-up should be low-intensity and consistent from day to day, so it does not eat into your productive time. The technique block covers scales, etudes, fundamentals, whatever your teacher has assigned or you have identified as a gap. The repertoire work is where you apply the methods from the previous sections: slow practice, chunking, working specific passages. The run-through at the end gives you a sense of where the whole piece stands.</p>
+            <p>The ratio will vary depending on where you are in the preparation cycle. Early in learning a piece, spend more time on technique and slow work. As a performance or audition approaches, shift more time toward run-throughs and performance simulation.</p>
+          </div>
+          <div class="drawer-section">
+            <h3>Tracking Your Progress</h3>
+            <p>Keep a practice log. It does not need to be elaborate. Writing down what you worked on and what you noticed, even in two or three sentences per day, does two things. First, it forces you to be intentional about what you are doing in each session. Second, it gives you a record to look back at, which makes it much easier to see patterns over time — including what is actually improving and what has been stuck for weeks.</p>
+            <p>If something has been stuck for weeks, that is a signal that your current approach to it is not working and needs to change.</p>
+          </div>
+        `
+      },
+      plateaus: {
+        label: "04 — Practice Habits",
+        title: "Understanding Plateaus",
+        body: `
+          <p>Plateaus are a normal part of musical development. Every serious musician hits them repeatedly. The frustrating part is that they often arrive right after a period of rapid improvement, which makes them feel like regression even when nothing has actually gotten worse.</p>
+          <p>Most plateaus have identifiable causes.</p>
+          <div class="drawer-section">
+            <h3>The Comfort Zone Problem</h3>
+            <p>If your practice sessions feel comfortable and manageable, you are probably not improving. Improvement requires practicing at the edge of your current ability, which is slightly uncomfortable by definition. If you have been working on the same passages at the same tempo for several weeks without increasing the demand, you have likely reached the limit of what that approach will give you.</p>
+            <p>The fix is to deliberately increase the challenge. Raise the tempo a few clicks faster than you think you can manage. Add a passage you have been avoiding. Ask your teacher to give you something harder.</p>
+          </div>
+          <div class="drawer-section">
+            <h3>The Physical Ceiling</h3>
+            <p>Some plateaus are physical. A technique is not improving because the underlying physical mechanism is not yet developed enough to support it. In this case, drilling the passage faster is counterproductive and can reinforce tension or bad habits. The answer is usually to return to very slow practice with close attention to the physical sensation of playing, or to address a specific technical exercise that targets the underlying problem.</p>
+          </div>
+          <div class="drawer-section">
+            <h3>The Mental Ceiling</h3>
+            <p>Other plateaus are mental. You know the notes, but you are not fully hearing what you are playing. You are executing rather than listening. This often shows up as passages that sound flat or mechanical even when the notes are correct.</p>
+            <p>Mental practice helps here. So does listening to recordings of the piece with close attention, then returning to your own playing with a clearer sense of what you are aiming for. It is easier to produce a sound you can already hear in your head.</p>
+          </div>
+          <div class="drawer-section">
+            <h3>The Fatigue Plateau</h3>
+            <p>Sometimes a plateau is simply fatigue. You have been working hard for several weeks and your progress has stalled because your brain and body need rest. Taking one or two days completely away from your instrument — which feels counterintuitive when you are trying to improve — sometimes produces a noticeable improvement when you return.</p>
+          </div>
+        `
+      },
+      performance: {
+        label: "05 — Practice Habits",
+        title: "Practicing for Performance",
+        body: `
+          <p>Preparation for a performance or audition requires a different kind of practice than the slow, drilling work of learning a piece. At some point, you need to shift from building the piece to playing it under conditions that resemble the ones you will face.</p>
+          <div class="drawer-section">
+            <h3>Simulate Pressure Before It Arrives</h3>
+            <p>The most common audition problem is not lack of preparation. It is the gap between how well you play in your practice room and how well you play when something is at stake. This gap can be narrowed by deliberately practicing under pressure before the audition.</p>
+            <p>Play through your program for anyone who will listen — a parent, a friend, a sibling, someone with no musical background. Record yourself and listen back. Play in an unfamiliar room. The specific audience or setting matters less than the act of performing with some external witness, which activates a different mental state than private practice.</p>
+            <p>The more often you practice performing, the more ordinary performing becomes. Nerves do not disappear, but they become manageable because the situation feels familiar.</p>
+          </div>
+          <div class="drawer-section">
+            <h3>What to Do in the Final Week</h3>
+            <p>In the week before a performance or audition, the goal is not to learn anything new. If a passage is not where you want it by this point, intensive drilling is unlikely to fix it and may increase anxiety. The priority is to stabilize what you have and keep your playing fresh.</p>
+            <p>Run through the program every day, but do not over-practice. Protect your physical condition. If you play a wind instrument or sing, be careful with your voice and rest. If you play a string instrument or piano, avoid anything that could cause hand or arm fatigue.</p>
+            <p>Go into the audition with a clear, simple mental focus. Pick one or two things to pay attention to while you play, not a list of ten things that can go wrong. Most experienced performers find that a narrow, positive focus — something like listening to the sound, or keeping the phrase moving forward — is more reliable than trying to monitor everything at once.</p>
+          </div>
+          <div class="drawer-section">
+            <h3>After Something Goes Wrong</h3>
+            <p>Something will go wrong. A memory slip, a missed entrance, a note that does not speak the way you intended. What matters is what you do in the next measure.</p>
+            <p>The musicians who recover well are the ones who have practiced recovery. In run-throughs, practice continuing past mistakes without stopping. Train yourself not to show a reaction on your face when something goes wrong. An audition panel watches how you handle difficulty, not just how you play when everything is going right.</p>
+          </div>
+        `
+      }
+    };
+
+    const overlay = document.getElementById('drawerOverlay');
+    const drawer = document.getElementById('drawer');
+    const drawerLabel = document.getElementById('drawerLabel');
+    const drawerBody = document.getElementById('drawerBody');
+    const drawerClose = document.getElementById('drawerClose');
+
+    function openDrawer(topic) {
+      const c = content[topic];
+      if (!c) return;
+      drawerLabel.textContent = c.label;
+      drawerBody.innerHTML = `<h2>${c.title}</h2>${c.body}`;
+      drawerBody.scrollTop = 0;
+      drawer.scrollTop = 0;
+      overlay.classList.add('open');
+      drawer.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      drawerClose.focus();
+    }
+
+    function closeDrawer() {
+      overlay.classList.remove('open');
+      drawer.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    // AUDITION CONTENT
+    const auditionContent = {
+      landscape: {
+        label: "Chapter 1 — Audition Guide",
+        title: "Understanding the Landscape",
+        body: `
+          <p>The first thing to understand is that "music school" means several different things, and the distinctions matter.</p>
+          <div class="drawer-section" style="border-top:none; padding-top:0; margin-top:0;">
+            <h3>Standalone Conservatories</h3>
+            <p>A standalone conservatory is the most intensive option. Juilliard, Curtis, and the New England Conservatory are the most well-known examples. Admission is very competitive, requiring a live audition, and the focus is laser-sharp on artistic development. At Curtis, tuition is fully covered for every admitted student, which makes it genuinely singular. At Juilliard, the undergraduate degree is a Bachelor of Music, and nearly all of your time will be spent in music-related coursework. If you go this route, you are committing fully to performance training from day one.</p>
+          </div>
+          <div class="drawer-section">
+            <h3>Schools of Music Within Universities</h3>
+            <p>Eastman at the University of Rochester, the Jacobs School at Indiana University, the Bienen School at Northwestern, the School of Music at Michigan — these offer conservatory-level training while remaining connected to a larger university. University programs still provide rigorous musical education but typically require more general education courses and offer more opportunities to explore non-music subjects. This matters more than it might seem. If you are not entirely certain that performance is your only direction, a university-based school gives you more room. If you are certain, the training at places like Eastman or Jacobs is just as rigorous as any standalone conservatory.</p>
+          </div>
+          <div class="drawer-section">
+            <h3>Departments of Music Within Liberal Arts Colleges</h3>
+            <p>A third option that often goes underexplored. These programs produce serious musicians but operate on a smaller scale, with less specialized infrastructure. They work well for students who want a traditional college experience alongside serious music study.</p>
+          </div>
+          <div class="drawer-section">
+            <h3>Application Differences</h3>
+            <p>The audition requirements and application process differ by institution type. Standalone conservatories generally have their own application form and do not use the Common App. Music schools within universities will typically have additional steps that relate to the university admissions review — you may be filling out both a university application and a separate music school application. Read the admissions page for every school on your list carefully, and read it early.</p>
+            <p>None of these paths is objectively better. The question is which environment matches where you are and where you want to go.</p>
+          </div>
+        `
+      },
+      schoollist: {
+        label: "Chapter 2 — Audition Guide",
+        title: "Building Your School List",
+        body: `
+          <p>Reach, match, and safety are terms borrowed from college admissions broadly, but they work differently for music programs. At a conservatory, your playing is the primary factor. Scholarships are almost entirely talent or merit-based, and decisions involve the faculty directly. A student with a 4.0 GPA who plays poorly will not get in. A student with a 3.0 who plays at a high level probably will.</p>
+          <p>This means your list needs to be honest about your playing level, not your academic profile. A useful exercise: listen to recordings of students at the schools you are considering, particularly studio recitals or competition recordings posted publicly. If the playing sounds like a significant step above where you currently are, that school is a reach. If it sounds like your level, it is a match.</p>
+          <div class="drawer-section">
+            <h3>Teacher Fit</h3>
+            <p>At most music programs, you apply to a studio as much as to a school. The faculty member you study with will shape your playing, your repertoire, your professional network, and your opportunities for the next four years. Research who teaches at each school before you apply.</p>
+            <p>At the University of Michigan, Amy Porter is a distinguished professor who accepts 4–5 students each year out of the 65–85 flutists who apply. At Indiana University's Jacobs School, Thomas Robertello has been associate professor of flute since 1997, a former member of the Pittsburgh Symphony, the Cleveland Orchestra, and the National Symphony. At Northwestern's Bienen School, John Thorne serves as associate professor of flute, having previously served as associate principal flute of the Houston Symphony for twenty years. At Eastman, Bonita Boyd has been professor of flute since 1977, beginning her career as principal flutist of the Rochester Philharmonic at age twenty-one. At Juilliard, Carol Wincenc has been on the faculty since 1988 and is one of the most recognized flute pedagogues in the country.</p>
+            <p>These are not just names to drop in your essays. They are people whose teaching philosophy, studio culture, and professional connections will directly affect your experience. Look up their recordings. Watch masterclass videos if you can find them. If a teacher's approach to sound or musicality is something you respond to, say so specifically when you correspond with them.</p>
+          </div>
+          <div class="drawer-section">
+            <h3>Program Fit</h3>
+            <p>Think about how large the studio is, what the ensemble opportunities look like, whether the school has a strong wind ensemble or orchestra program, and what the performance culture is like. Some programs put undergraduates on large-scale concerts from their first year. Others have students working mostly in studio and chamber settings early on. Neither is wrong, but they produce different experiences.</p>
+          </div>
+          <div class="drawer-section">
+            <h3>Location and Cost</h3>
+            <p>Bloomington, Indiana and Evanston, Illinois are very different places to live than New York City. Cost of living, proximity to professional performance opportunities, and how isolated or connected the campus feels all matter for four years of your life. Do not ignore these factors when building your list.</p>
+          </div>
+        `
+      },
+      repertoire: {
+        label: "Chapter 3 — Audition Guide",
+        title: "Repertoire and Timeline",
+        body: `
+          <p>Repertoire selection for a college audition is one of the most consequential decisions you will make in the process, and most students make it too late.</p>
+          <div class="drawer-section" style="border-top:none; padding-top:0; margin-top:0;">
+            <h3>When to Lock In Your Repertoire</h3>
+            <p>The ideal timeline is to have your audition repertoire selected by the summer before your senior year and largely prepared by October. Most live auditions take place between January and March. That gives you roughly six months of focused preparation. If you are selecting repertoire in November, you are behind.</p>
+            <p>Locking in repertoire early does two things. It gives you enough time to move past technical security into genuine musical ownership of the material. And it allows your teacher to give you meaningful feedback across many lessons rather than just a few.</p>
+          </div>
+          <div class="drawer-section">
+            <h3>What to Choose</h3>
+            <p>Most programs specify repertoire requirements on their admissions pages — a major work, scales, sight-reading, possibly an etude or orchestral excerpt. Read these requirements for every school on your list, because they are not all identical.</p>
+            <p>Within those requirements, choose repertoire that shows your range and plays to your actual strengths, not the piece you think the panel wants to hear. A well-prepared, musically mature performance of a mid-difficulty piece will almost always beat a shaky performance of the most technically demanding repertoire in the standard literature. Panels notice when a student actually inhabits the music rather than surviving it.</p>
+            <p>That said, do not choose something too safe. If you are applying to a program at the level of Juilliard, Eastman, or Jacobs, the repertoire needs to reflect serious preparation. A concerto or major sonata should anchor your program at most schools at this level.</p>
+          </div>
+          <div class="drawer-section">
+            <h3>The Final Months</h3>
+            <p>By January, you should be able to play your audition program from start to finish at any time with minimal warmup. The ability to perform reliably regardless of conditions — nerves, unfamiliar room, different piano — is what the preparation of those months is building toward. Use the practice section of this site for specific strategies on how to get there.</p>
+          </div>
+        `
+      },
+      prescreens: {
+        label: "Chapter 4 — Audition Guide",
+        title: "Prescreens",
+        body: `
+          <p>A prescreen is a recorded video submission that some schools use to filter applicants before extending live audition invitations. Not all programs require them. Schools with very high application volume — Juilliard, Eastman, USC Thornton, and others — typically do. Check each school's admissions page carefully, because prescreen deadlines often fall in November or early December, weeks before the regular application deadline.</p>
+          <div class="drawer-section" style="border-top:none; padding-top:0; margin-top:0;">
+            <h3>What Prescreens Are For</h3>
+            <p>From the school's perspective, prescreens exist to manage the logistics of live auditions. A program may receive hundreds of applications for a studio that accepts three or four students per year. The prescreen narrows the field to the candidates worth flying in or traveling to hear.</p>
+            <p>From your perspective, the prescreen is your first impression. A panel deciding whether to invite you for a live audition will watch your recording, often quickly and alongside many others. You want your playing to be immediately compelling.</p>
+          </div>
+          <div class="drawer-section">
+            <h3>How to Record Well</h3>
+            <p>Recording quality matters more than most students expect. A shaky phone video with poor audio is a distraction, regardless of how well you play. Use a decent microphone if you have access to one — even a simple USB condenser microphone makes a meaningful difference. Record in a space with good acoustics and minimal background noise. Church sanctuaries, school practice rooms, and small recital halls often work well.</p>
+            <p>Shoot horizontally, frame yourself from roughly the knees up, and make sure the lighting is even. Do not record with a window behind you.</p>
+            <p>Record multiple takes and watch them back critically before submitting. Listen for intonation, tone consistency, and phrasing. Follow the technical specifications each school lists exactly. If they ask for an unlisted YouTube link, submit an unlisted YouTube link. Failing to follow instructions is an easy reason to be filtered out before anyone even listens.</p>
+          </div>
+          <div class="drawer-section">
+            <h3>How to Think About Prescreens</h3>
+            <p>A prescreen invitation does not guarantee a live audition acceptance, and a prescreen rejection does not necessarily mean your playing was the problem. Teacher availability, studio balance, and institutional needs all factor into these decisions in ways you cannot fully see from the outside. Apply to enough programs that a prescreen rejection at one school does not collapse your entire list.</p>
+          </div>
+        `
+      },
+      liveaudition: {
+        label: "Chapter 5 — Audition Guide",
+        title: "Live Auditions",
+        body: `
+          <p>The live audition is the center of the entire process. Every other part of the application — essays, grades, recommendations — is secondary to what happens in the room.</p>
+          <div class="drawer-section" style="border-top:none; padding-top:0; margin-top:0;">
+            <h3>Logistics</h3>
+            <p>Most live auditions take place on campus between January and March. Some schools offer regional audition sites or video options in limited cases, but if you can attend in person, do. The campus visit itself is part of your evaluation of the school, and being present signals commitment.</p>
+            <p>Arrive early. If you have never played in the audition space before, try to warm up nearby with your accompanist if you are using one. Familiarize yourself with the acoustics even briefly before you play. Know the format — some schools have you play for a full faculty panel, others for one or two members, and some include a brief interview, sight-reading, or scales. The requirements are on the admissions page; read them more than once.</p>
+          </div>
+          <div class="drawer-section">
+            <h3>In the Room</h3>
+            <p>The panel is not rooting against you. Most faculty members at these programs genuinely want to hear strong playing and are hoping each student walks in and delivers it. Try to play as if you are performing for an audience rather than being evaluated by a committee, because the performance mentality produces better results than the audition mentality.</p>
+            <p>Take your time before you start. Set your tempo in your head, take a breath, and begin. If something goes wrong mid-performance, keep going. A panel that watches a student recover cleanly from a mistake and continue playing with musicality often comes away more impressed than if the performance had been technically perfect. The ability to continue under pressure is itself a skill they are evaluating.</p>
+          </div>
+          <div class="drawer-section">
+            <h3>After the Audition</h3>
+            <p>Thank the panel before you leave. It is a small thing, but it signals maturity and awareness. If there is an opportunity to speak with a faculty member informally after your audition or during a campus tour, take it. Ask a thoughtful question about the studio or the program. These conversations are not formal evaluations, but they are noticed.</p>
+          </div>
+        `
+      },
+      fit: {
+        label: "Chapter 6 — Audition Guide",
+        title: "Finding the Right Fit",
+        body: `
+          <p>The teacher you study with matters more than almost anything else about the program. Your relationship with your primary teacher will shape your playing, your professional development, your confidence, and in many cases, your career trajectory. Choosing a school primarily because of its name, without seriously considering the faculty member you would study with, is a common mistake.</p>
+          <div class="drawer-section" style="border-top:none; padding-top:0; margin-top:0;">
+            <h3>Researching Teachers</h3>
+            <p>Look up every primary teacher at every school on your list. Listen to their recordings. Watch their masterclass videos online — the NFA convention, Flute Center of New York, and various school-hosted videos are good sources. Read interviews. Pay attention to what they emphasize: tone, technique, musicality, career development, wellness. Think about whether their priorities align with yours.</p>
+            <p>Eastman's studio under Bonita Boyd is described as warm and supportive, with a focus on sound, technical development, and artistic study across solo, orchestral, and chamber repertoire of all periods, featuring bi-weekly studio classes and guest artists like Emanuel Pahud, Marina Piccinini, and Jeffrey Khaner. Michigan's studio under Amy Porter has 16–18 students from around the world, with all students receiving the same training across excerpts, solo repertoire, underrepresented composers, and chamber music. These are meaningfully different environments. Knowing what each studio actually looks like helps you make a better decision.</p>
+          </div>
+          <div class="drawer-section">
+            <h3>Reaching Out to Faculty</h3>
+            <p>It is appropriate, and often expected, to reach out to a faculty member before your audition. A brief, professional email introducing yourself, expressing genuine interest in their studio, and asking a specific question about the program or their teaching is well-received at most schools. Do not send a generic email to every teacher on your list. Mention something specific — a recording you heard, a masterclass you watched, a repertoire choice that connects to their work. Faculty members notice when a student has done their homework.</p>
+            <p>At Juilliard, the admissions page notes that setting up a meeting or lesson with a teacher is optional and that you may contact faculty through the school's online directory. Most schools operate similarly. Scheduling a lesson in advance of your audition, if a teacher offers it, is one of the best investments you can make. It gives you a direct sense of their teaching approach and gives them a sense of you beyond a single audition performance.</p>
+          </div>
+          <div class="drawer-section">
+            <h3>Campus Visits</h3>
+            <p>If you receive a live audition invitation, use the visit to gather information beyond the audition itself. Talk to current students. Ask what they wish they had known before they enrolled. Ask about the studio culture, the ensemble opportunities, and what life outside the music building is like. Current students will tell you things the admissions office will not.</p>
+          </div>
+        `
+      },
+      after: {
+        label: "Chapter 7 — Audition Guide",
+        title: "After the Audition",
+        body: `
+          <div class="drawer-section" style="border-top:none; padding-top:0; margin-top:0;">
+            <h3>How Decisions Work</h3>
+            <p>In most music programs, the faculty of the relevant studio make the admission recommendation, which is then processed through the school's admissions office. This means a professor who heard you audition is directly involved in whether you are admitted. Notification timelines vary by school — some programs notify within weeks of your audition, others wait until late March or April. Check each school's timeline and follow up if you have not heard by the expected date.</p>
+          </div>
+          <div class="drawer-section">
+            <h3>If You Are Admitted to Multiple Programs</h3>
+            <p>This is a good problem to have, and it is worth thinking about carefully. Cost is a real factor. Scholarship offers vary enormously between programs, and a full scholarship at a strong program is worth seriously weighing against a partial scholarship at a more prestigious one. The quality of your education and the strength of your teacher relationship matter far more than the name on your diploma in most professional contexts.</p>
+            <p>Revisit the questions from the school list phase: which teacher do you most want to work with, which studio culture fits you, which environment will let you grow the most over four years. If you are genuinely uncertain between two options, contact both programs, let them know you are deciding, and ask if there is an opportunity to speak with the faculty member or visit the campus again. Most schools will accommodate this.</p>
+          </div>
+          <div class="drawer-section">
+            <h3>If You Are Waitlisted</h3>
+            <p>A waitlist at a music program is different from a general college waitlist. Movement depends on whether admitted students decline their offers, which can happen for financial reasons or because a student chose another program. Contact the admissions office to confirm your interest in remaining on the waitlist and ask about the typical timeline for decisions. Continue preparing as if you will be attending one of your other options.</p>
+          </div>
+          <div class="drawer-section">
+            <h3>If the Outcomes Are Not What You Expected</h3>
+            <p>It happens to strong players at good programs. The audition pool is competitive and the number of spots is genuinely small. A rejection from one program is not a verdict on your ability or your future. Many of the most successful musicians working today were rejected from programs they wanted to attend and built their careers regardless.</p>
+            <p>If the results across the board are disappointing, think carefully about your next step before immediately reapplying. A gap year spent studying intensively with a strong teacher, attending a summer program like Brevard or Aspen, or competing in a regional competition can meaningfully change what your next audition cycle looks like. Use the feedback from this cycle — what felt strong, what fell short — and address it directly.</p>
+          </div>
+        `
+      }
+    };
+
+    document.querySelectorAll('.practice-card').forEach(card => {
+      card.addEventListener('click', () => openDrawer(card.dataset.topic));
+      card.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openDrawer(card.dataset.topic);
+        }
+      });
+      card.setAttribute('tabindex', '0');
+      card.setAttribute('role', 'button');
+    });
+
+    document.querySelectorAll('.audition-item').forEach(item => {
+      item.addEventListener('click', () => {
+        const topic = item.dataset.topic;
+        const c = auditionContent[topic];
+        if (!c) return;
+        drawerLabel.textContent = c.label;
+        drawerBody.innerHTML = `<h2>${c.title}</h2>${c.body}`;
+        drawerBody.scrollTop = 0;
+        drawer.scrollTop = 0;
+        overlay.classList.add('open');
+        drawer.classList.add('open');
+        document.body.style.overflow = 'hidden';
+        drawerClose.focus();
+      });
+      item.setAttribute('tabindex', '0');
+      item.setAttribute('role', 'button');
+      item.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          item.click();
+        }
+      });
+    });
+
+    drawerClose.addEventListener('click', closeDrawer);
+    overlay.addEventListener('click', closeDrawer);
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeDrawer();
+    });
+  </script>
+</body>
+</html>
